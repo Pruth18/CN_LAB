@@ -248,3 +248,74 @@ printf("%d",data[i]);
 getch();
 return 0;
 }
+
+
+//11th pgm//
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct packet
+{
+	int time;
+	int size;
+}p[50];
+
+int main()
+{
+	int i,m,n,k=0;
+	int bfilled,bsize,outrate;
+	printf("Enter the no of packets");
+	scanf("%d",&n);
+	printf("\nenter packets in order of their arrival time");
+    for(i=0;i<n;i++)
+    {
+		printf("enter the time n size");
+		scanf("%d%d",&p[i].time,&p[i].size);
+	}
+	printf("enter the bsize");
+	scanf("%d",&bsize);
+	printf("enter the outrate");
+	scanf("%d",&outrate);
+	
+	m=p[n-1].time; i=1; k=0; bfilled=0;
+	
+	while(i<=m || bfilled!=0)
+	{
+		printf("\n\n At time %d",i);
+		
+		if(p[k].time==i)
+		{
+			if(bsize>=bfilled+p[k].size)
+			{
+				bfilled=bfilled+bsize;
+				printf("%d byte packet is inserted",p[k].size);
+				k=k+1;
+			}
+			else
+			{
+				printf("%d byte packet is discarded",p[k].size);
+				k=k+1;
+			}
+		}
+		if(bfilled==0)
+		{
+			printf("nothing to transmit");
+		}
+		else if(bfilled!=0)
+		{
+			bfilled=bfilled-outrate;
+			printf("%d byte packte transfered",outrate);
+		}
+		else
+		{
+			printf("%d byte is transfered",bfilled);
+			bfilled=0;
+		}
+		printf("packets in bucket",&bfilled);
+		i++;
+		return 0;
+	}
+
